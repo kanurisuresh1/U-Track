@@ -1,0 +1,299 @@
+<div class="col-md-12 card-body">
+    <div class="row">
+        <div class="col-md-7 no-pad">
+            <div class="height-80vh  white-bg" id="livemap">
+            </div>
+
+            <div class="mapselectoption" >
+                <div class=" col-md-12 pull-right" style="margin-right: 20px;">
+                    <select id="maptype" class="form-control" (click)="changeMapType()">
+                        <option value="" disabled selected>Select Map Type</option>
+                        <option value="satellite">satellite</option>
+                        <option value="hybrid">hybrid</option>
+                        <option value="roadmap">roadmap</option>
+                        <option value="terrain">terrain</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mapselectoption" style="right: 205px; width: 250px;">
+                <div class=" col-md-12 pull-right" style="margin-right: 30px;">
+                    <select class="form-control" [(ngModel)]="deviceLinkId" (ngModelChange)="updateSelectedValue($event)">
+                        <option *ngFor='let row of vehicles' [ngValue]="row | json">{{ row.vehicle_number }}- {{row.vehicle_type}} </option>
+                    </select>
+                </div>
+            </div>
+
+
+
+
+            <div class="vehicle-types-model">
+                <p><i class="fa fa-square-full text-move"></i> Moving</p>
+                <p><i class="fa fa-square-full text-datanotfound"></i> Data Not Found</p>
+                <p><i class="fa fa-square-full text-stop"></i> Stopped</p>
+            </div>
+
+            <div class="speedometer" style="width:300px;height:180px;">
+            </div>
+        </div>
+
+        <div class="col-md-5 mb10">
+            <div class="height-80vh  white-bg col-md-12 pt20 pb20">
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <p class="mb10">Last Record Received On :<br>
+                            <b> {{device_time}}</b>
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="mb10"><span id="product_property_name"></span><br>
+                            <b><label id="product_property_value"></label></b></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="mb10"> Latitude :<br>
+                            <b> {{latitudedata}} </b>
+                        </p>
+                    </div>
+
+                    <div class="col-md-4">
+                        <p class="mb10"> Longitude :<br> 
+                            <b> {{longitudedata}} </b>
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="mb10"> Speed :<br>
+                           <b> {{speed}} </b>
+                        </p>
+                    </div>
+                </div>
+
+                <p class="mb10"> Location :<br>
+                    <b> {{Location}} </b>
+                </p>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <a>
+                            <button class="btn btn-theme-yellow btn-lg">Track History</button>
+                        </a>
+                        <a>
+                            <button class="btn btn-theme-yellow btn-lg">Trip Details</button>
+                        </a>
+                    </div>
+                </div>
+                <hr style="margin: 8px 0px;">
+                <h5 class="text-center text-blue">Statistics</h5>
+                <hr style="margin: 5px 0px;">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <mat-tab-group>
+                            <mat-tab label="Today">
+                                <div class="row">
+                                    <div class="col-md-6  clearfix">
+                                        <a >
+                                            <div class="bdr-box clearfix">
+                                                <div class="row">
+                                                <div class="col-md-5 no-pad">
+                                                    <img src="assets/images/statistics/avg_speed.png" class="responsive text-center" />
+                                                </div>
+                                                <div class="col-md-7 no-pad mt15">
+                                                    <small><b>Avg Speed</b></small>
+                                                    <p> {{today_avg_speed}}  <b>KMPH</b></p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-md-6 ">
+                                        <a>
+                                            <div class="bdr-box clearfix">
+                                                <div class="row">
+                                                <div class="col-md-5 no-pad">
+                                                    <img src="assets/images/statistics/speed_meter.png" class="responsive text-center" />
+                                                </div>
+                                                <div class="col-md-7 no-pad mt15">
+                                                    <small><b>Max Speed</b></small>
+                                                    <p>  {{today_max_speed}} <b>KMPH</b> </p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-md-6 ">
+                                        <a>
+                                            <div class="bdr-box clearfix">
+                                                <div class="row">
+                                                <div class="col-md-5 no-pad">
+                                                <img src="assets/images/statistics/car.png" class="responsive text-center" />
+                                                </div>
+                                                <div class="col-md-7 no-pad mt15">
+                                                    <small><b>Travel time</b></small>
+                                                    <p>{{today_travelled_time}} </p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <a>
+                                            <div class="bdr-box clearfix">
+                                                <div class="row">
+                                                <div class="col-md-5 no-pad">
+                                                <img src="assets/images/statistics/locationj_pin.png" class="responsive text-center" />
+                                                </div>
+                                                <div class="col-md-7 no-pad mt15">
+                                                    <small><b>Total Distance</b></small>
+                                                    <p> {{today_total_distance}}  <b>KM</b></p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                            <mat-tab label="Yesterday"> 
+                                <div class="row">
+                                    <div class="col-md-6  clearfix">
+                                        <a >
+                                            <div class="bdr-box clearfix">
+                                                <div class="row">
+                                                <div class="col-md-5 no-pad">
+                                                    <img src="assets/images/statistics/avg_speed.png" class="responsive text-center" />
+                                                </div>
+                                                <div class="col-md-7 no-pad mt15">
+                                                    <small><b>Avg Speed</b></small>
+                                                    <p> {{yesterday_avg_speed}}  <b>KMPH</b></p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-md-6 ">
+                                        <a>
+                                            <div class="bdr-box clearfix">
+                                                <div class="row">
+                                                <div class="col-md-5 no-pad">
+                                                    <img src="assets/images/statistics/speed_meter.png" class="responsive text-center" />
+                                                </div>
+                                                <div class="col-md-7 no-pad mt15">
+                                                    <small><b>Max Speed</b></small>
+                                                    <p>  {{yesterday_max_speed}} <b>KMPH</b> </p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-md-6 ">
+                                        <a>
+                                            <div class="bdr-box clearfix">
+                                                <div class="row">
+                                                <div class="col-md-5 no-pad">
+                                                <img src="assets/images/statistics/car.png" class="responsive text-center" />
+                                                </div>
+                                                <div class="col-md-7 no-pad mt15">
+                                                    <small><b>Travel time</b></small>
+                                                    <p>{{yesterday_travelled_time}} </p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <a>
+                                            <div class="bdr-box clearfix">
+                                                <div class="row">
+                                                <div class="col-md-5 no-pad">
+                                                <img src="assets/images/statistics/locationj_pin.png" class="responsive text-center" />
+                                                </div>
+                                                <div class="col-md-7 no-pad mt15">
+                                                    <small><b>Total Distance</b></small>
+                                                    <p> {{yesterday_total_distance}}  <b>KM</b></p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                            <mat-tab label="Last 7days">
+                                <div class="row">
+                                    <div class="col-md-6  clearfix">
+                                        <a >
+                                            <div class="bdr-box clearfix">
+                                                <div class="row">
+                                                <div class="col-md-5 no-pad">
+                                                    <img src="assets/images/statistics/avg_speed.png" class="responsive text-center" />
+                                                </div>
+                                                <div class="col-md-7 no-pad mt15">
+                                                    <small><b>Avg Speed</b></small>
+                                                    <p> {{last7days_avg_speed}}  <b>KMPH</b></p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-md-6 ">
+                                        <a>
+                                            <div class="bdr-box clearfix">
+                                                <div class="row">
+                                                <div class="col-md-5 no-pad">
+                                                    <img src="assets/images/statistics/speed_meter.png" class="responsive text-center" />
+                                                </div>
+                                                <div class="col-md-7 no-pad mt15">
+                                                    <small><b>Max Speed</b></small>
+                                                    <p>  {{last7days_max_speed}} <b>KMPH</b> </p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-md-6 ">
+                                        <a>
+                                            <div class="bdr-box clearfix">
+                                                <div class="row">
+                                                <div class="col-md-5 no-pad">
+                                                <img src="assets/images/statistics/car.png" class="responsive text-center" />
+                                                </div>
+                                                <div class="col-md-7 no-pad mt15">
+                                                    <small><b>Travel time</b></small>
+                                                    <p>{{last7days_travelled_time}} </p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <a>
+                                            <div class="bdr-box clearfix">
+                                                <div class="row">
+                                                <div class="col-md-5 no-pad">
+                                                <img src="assets/images/statistics/locationj_pin.png" class="responsive text-center" />
+                                                </div>
+                                                <div class="col-md-7 no-pad mt15">
+                                                    <small><b>Total Distance</b></small>
+                                                    <p> {{last7days_total_distance}}  <b>KM</b></p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                          </mat-tab-group>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

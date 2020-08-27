@@ -1,0 +1,466 @@
+<div class="row clearfix">
+    <div class="col-md-10 text-left">
+        <button class="btn btn-primary mr15 btn-sm" nbTooltip="Back" nbTooltipStatus="primary"
+            [nbTooltipIcon]="{icon: 'arrow-back-outline', pack: 'eva'}" (click)="back()"><i class="fa fa-arrow-left"
+                aria-hidden="true"></i>
+        </button>
+    </div>
+    <div class="col-md-12 no-pad">
+
+        <div [formGroup]="vechicleNumDetailsForm">
+            <!-- <div class="circle mt20 mb20 row">
+           
+            <img class="profile-pic" src="">
+
+           
+             <i class="fa fa-user fa-5x"></i> 
+        </div>
+        <div class="p-image">
+            <i class="fa fa-camera upload-button"></i>
+            <input class="file-upload" type="file" accept="image/*">
+        </div>  -->
+
+
+
+
+
+            <div class="col-sm-12 col-md-offset-6">
+                <div class="circle">
+                    <div class="image-preview mb-3 ng-star-inserted"><img height="76" width="74"
+                            src="{{vehicle_image}}"></div>
+                </div>
+                <div class="p-image"><i type="button" class="fa fa-camera upload-button"></i><input hidden=""
+                        type="file" formControlName="fctrl_image" id="file" ng-reflect-name="image"
+                        class="ng-untouched ng-pristine ng-valid"></div>
+            </div>
+
+
+
+
+
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="inputMDEx" class="active">Device IMEI</label>
+                        <input type="text" formControlName="fctrl_deviceImei" id="IMEI" class="form-control">
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="inputMDEx" class="active">Engine Number</label>
+                        <input type="text" id="engine_number" formControlName="fctrl_engine_number"
+                            [(ngModel)]="engine_number" name="engine_number" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="inputMDEx" class="active">Chassis Number</label>
+                        <input type="text" id="chassis_number" [(ngModel)]="chassis_number" name="chassis_number"
+                            formControlName="fctrl_chassis_number" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="inputMDEx" class="active">Make</label>
+                        <input type="text" id="make" formControlName="fctrl_make" [(ngModel)]="make" name="make"
+                            class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="inputMDEx" class="active">Model</label>
+                        <input type="text" id="model" formControlName="fctrl_model" [(ngModel)]="model" name="model"
+                            class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="inputMDEx" class="active">Over Speed Limit</label>
+                        <input type="text" id="over_speed" formControlName="fctrl_over_speed" name="over_speed"
+                            [(ngModel)]="over_speed" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div>
+                        <label>Fuel Type</label>
+
+                        <mat-select class="form-control" formControlName="fctrl_vechicleName">
+                            <mat-option [value]="1"> Petrol</mat-option>
+                            <mat-option [value]="2"> Diesel</mat-option>
+                            <mat-option [value]="3"> CNG</mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Buy Date<span class="required">*</span></label>
+                        <mat-form-field class="no-line">
+                            <mat-label>Enter Buy Date</mat-label>
+                            <!-- #docregion toggle -->
+                            <input matInput class="form-control datepicker" [matDatepicker]="buyDatePicker"
+                                formControlName="fctrl_buyDate">
+                            <mat-datepicker-toggle matSuffix [for]="buyDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #buyDatePicker></mat-datepicker>
+                            <!-- #enddocregion toggle -->
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="inputMDEx" class="active">Fuel Tank size in Ltrs</label>
+                        <input type="text" id="fuel_tank_size" formControlName="fctrl_fuel_tank_size"
+                            name="fuel_tank_size" [(ngModel)]="fuel_tank_size" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="inputMDEx" class="active">Average Milage per Ltr</label>
+                        <input type="text" id="mileage_per_litre" formControlName="fctrl_mileage_per_litre"
+                            [(ngModel)]="mileage_per_litre" name="mileage_per_litre" class="form-control">
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12 mb20">
+                    <label for="inputMDEx">Vehicle Images</label>
+                    <a method="post" enctype="multipart/form-data">
+                        <input type="file" multiple style="display: block" />
+                    </a>
+                    <div *ngIf="isVehicleImagesAvailable" class="row">
+                        <div class="col-md-12">
+                            <div class="gallery-box clearfix">
+                                <div class="img-gallery" *ngFor="let item of vehicleImages">
+                                    <li>
+                                        <img [src]="item.image_file" nbTooltip="Open Image" (click)="onImageOpen(item)"
+                                            nbTooltipStatus="info">
+                                        <div class="img-delete">
+                                            <i class="fa fa-trash-alt" nbTooltip="Delete" nbTooltipStatus="danger"
+                                                (click)="onImageDelete(item)"></i>
+                                        </div>
+                                    </li>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="no-image" *ngIf="!isVehicleImagesAvailable">No Images To Display</div>
+
+                    <div id="image_preview"></div>
+                </div>
+                <div class="clearfix"></div>
+                <hr>
+
+
+                <div class="col-md-12 text-primary">
+                    <h4>Rigistration Details</h4>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Vehicle Registration Date<span class="required">*</span></label>
+                        <mat-form-field class="no-line">
+                            <mat-label>Enter Registration Date</mat-label>
+                            <!-- #docregion toggle -->
+                            <input matInput class="form-control datepicker"
+                                [matDatepicker]="vehicleRegistrationDatePicker"
+                                formControlName="fctrl_vehicleRegistrationDate">
+                            <mat-datepicker-toggle matSuffix [for]="vehicleRegistrationDatePicker">
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #vehicleRegistrationDatePicker></mat-datepicker>
+                            <!-- #enddocregion toggle -->
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="inputMDEx">Rigistred Owner Name</label>
+                        <input type="text" id="registered_owner_name" formControlName="fctrl_registered_owner_name"
+                            [(ngModel)]="registered_owner_name" name="registered_owner_name" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-12 mb20">
+                    <label for="inputMDEx">Rigistration Images</label>
+                    <a method="post" enctype="multipart/form-data">
+                        <input type="file" id="upload_file" multiple style="display: block" />
+                    </a>
+
+                    <div *ngIf="isRegistraionImagesAvailable" class="row">
+                        <div class="col-md-12">
+                            <div class="gallery-box clearfix">
+                                <div class="img-gallery" *ngFor="let item of registrationImages">
+                                    <li>
+                                        <img [src]="item.image_file" (click)="onImageOpen(item)">
+                                        <div class="img-delete">
+                                            <i class="fa fa-trash-alt" (click)="onImageDelete(item)"></i>
+                                        </div>
+                                    </li>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="no-image" *ngIf="!isRegistraionImagesAvailable">No Images To Display</div>
+
+
+                    <div id="image_preview"></div>
+                </div>
+                <div class="clearfix"></div>
+                <hr>
+                <div class="col-md-12 text-primary">
+                    <h4>Insurance Detials</h4>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="inputMDEx" class="active">Insureance Vendor Name</label>
+                        <input type="text" id="insurance_vender_name" name="insurance_vender_name"
+                            [(ngModel)]="insurance_vender_name" formControlName="fctrl_insurance_vender_name"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="inputMDEx">Insurance Details</label>
+                        <input type="text" id="Engine" class="form-control" name="insurance_number"
+                            [(ngModel)]="insurance_number" formControlName="fctrl_insurance_number">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="inputMDEx" class="active">Insurance Cost</label>
+                        <input type="text" id="insurance_cost" name="insurance_cost" [(ngModel)]="insurance_cost"
+                            formControlName="fctrl_insurance_cost" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Insurance Date<span class="required">*</span></label>
+                        <mat-form-field class="no-line">
+                            <mat-label>Enter Insurance Date</mat-label>
+                            <!-- #docregion toggle -->
+                            <input matInput class="form-control datepicker" [matDatepicker]="insuranceDatepicker"
+                                formControlName="fctrl_insuranceDate">
+                            <mat-datepicker-toggle matSuffix [for]="insuranceDatepicker"></mat-datepicker-toggle>
+                            <mat-datepicker #insuranceDatepicker></mat-datepicker>
+                            <!-- #enddocregion toggle -->
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Insurance Renewal Date<span class="required">*</span></label>
+                        <mat-form-field class="no-line">
+                            <mat-label>Enter Insurance Renewal Date</mat-label>
+                            <!-- #docregion toggle -->
+                            <input matInput class="form-control datepicker" [matDatepicker]="insuranceRenewalDatepicker"
+                                formControlName="fctrl_insuranceRenewalDate">
+                            <mat-datepicker-toggle matSuffix [for]="insuranceRenewalDatepicker"></mat-datepicker-toggle>
+                            <mat-datepicker #insuranceRenewalDatepicker></mat-datepicker>
+                            <!-- #enddocregion toggle -->
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="col-md-12 mb20">
+                    <label for="inputMDEx">Insurance Images</label>
+                    <a method="post" enctype="multipart/form-data">
+                        <input type="file" id="upload_file" multiple style="display: block" />
+                    </a>
+
+                    <div *ngIf="isInsuranceImagesAvailable" class="row">
+                        <div class="col-md-12">
+                            <div class="gallery-box clearfix">
+                                <div class="img-gallery" *ngFor="let item of insuranceImages">
+                                    <li>
+                                        <img [src]="item.image_file" (click)="onImageOpen(item)">
+                                        <div class="img-delete">
+                                            <i class="fa fa-trash-alt" (click)="onImageDelete(item)"></i>
+                                        </div>
+                                    </li>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="no-image" *ngIf="!isInsuranceImagesAvailable">No Images To Display</div>
+
+
+                    <div id="image_preview"></div>
+                </div>
+                <div class="clearfix"></div>
+
+                <hr>
+                <div class="col-md-12 text-primary">
+                    <h4>Pollution Certificate</h4>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="inputMDEx" class="active">Pollution Cost</label>
+                        <input type="text" id="pollution_check_cost" name="pollution_check_cost"
+                            [(ngModel)]="pollution_check_cost" formControlName="fctrl_pollution_check_cost"
+                            class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Pollution Check Date<span class="required">*</span></label>
+                        <mat-form-field class="no-line">
+                            <mat-label>Enter Pollution Check Date</mat-label>
+                            <!-- #docregion toggle -->
+                            <input matInput class="form-control datepicker" [matDatepicker]="pollutionCheckDatepicker"
+                                formControlName="fctrl_pollutionCheckDate">
+                            <mat-datepicker-toggle matSuffix [for]="pollutionCheckDatepicker"></mat-datepicker-toggle>
+                            <mat-datepicker #pollutionCheckDatepicker></mat-datepicker>
+                            <!-- #enddocregion toggle -->
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Pollution Check Renewal Date<span class="required">*</span></label>
+                        <mat-form-field class="no-line">
+                            <mat-label>Enter Pollution Check Renewal Date</mat-label>
+                            <!-- #docregion toggle -->
+                            <input matInput class="form-control datepicker" [matDatepicker]="pollutionRenewalDatepicker"
+                                formControlName="fctrl_pollutionRenewalDate">
+                            <mat-datepicker-toggle matSuffix [for]="pollutionRenewalDatepicker"></mat-datepicker-toggle>
+                            <mat-datepicker #pollutionRenewalDatepicker></mat-datepicker>
+                            <!-- #enddocregion toggle -->
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="col-md-12 mb20">
+                    <label for="inputMDEx">Pollution Certificate Images</label>
+                    <a method="post" enctype="multipart/form-data">
+                        <input type="file" id="upload_file" multiple style="display: block" />
+                    </a>
+
+                    <div *ngIf="isPollutionImagesAvailable" class="row">
+                        <div class="col-md-12">
+                            <div class="gallery-box clearfix">
+                                <div class="img-gallery" *ngFor="let item of pollutionImages">
+                                    <li>
+                                        <img [src]="item.image_file" (click)="onImageOpen(item)">
+                                        <div class="img-delete">
+                                            <i class="fa fa-trash-alt" (click)="onImageDelete(item)"></i>
+                                        </div>
+                                    </li>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="no-image" *ngIf="!isPollutionImagesAvailable">No Images To Display</div>
+
+
+                    <div id="image_preview"></div>
+                </div>
+                <div class="clearfix"></div>
+                <hr>
+                <div class="col-md-12 text-primary">
+                    <h4>National Permit Details</h4>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="inputMDEx" class="active">National Permit Id</label>
+                        <input type="text" id="national_permit_id" [(ngModel)]="national_permit_id"
+                            name="national_permit_id" formControlName="fctrl_national_permit_id" class="form-control">
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>National Permit Issue Date<span class="required">*</span></label>
+                        <mat-form-field class="no-line">
+                            <mat-label>Enter Permit Date</mat-label>
+                            <!-- #docregion toggle -->
+                            <input matInput class="form-control datepicker" [matDatepicker]="nationalPermitDatePicker"
+                                formControlName="fctrl_nationalPermitDate">
+                            <mat-datepicker-toggle matSuffix [for]="nationalPermitDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #nationalPermitDatePicker></mat-datepicker>
+                            <!-- #enddocregion toggle -->
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="col-md-12 mb20">
+                    <label for="inputMDEx">National Permit Images</label>
+                    <a method="post" enctype="multipart/form-data">
+                        <input type="file" id="upload_file" name="upload_file[]" multiple style="display: block" />
+                    </a>
+
+                    <div *ngIf="isNationalPermitImagesAvailable" class="row">
+                        <div class="col-md-12">
+                            <div class="gallery-box clearfix">
+                                <div class="img-gallery" *ngFor="let item of nationalPermitImages">
+                                    <li>
+                                        <img [src]="item.image_file" (click)="onImageOpen(item)">
+                                        <div class="img-delete">
+                                            <i class="fa fa-trash-alt" (click)="onImageDelete(item)"></i>
+                                        </div>
+                                    </li>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="no-image" *ngIf="!isNationalPermitImagesAvailable">No Images To Display</div>
+
+
+                    <div id="image_preview"></div>
+                </div>
+                <div class="clearfix"></div>
+                <hr>
+                <div class="col-md-12 mb20">
+                    <label for="inputMDEx">Other Images</label>
+                    <a method="post" enctype="multipart/form-data">
+                        <input type="file" id="upload_file" multiple style="display: block" />
+                    </a>
+
+                    <div *ngIf="isOtherImagesAvailable" class="row">
+                        <div class="col-md-12">
+                            <div class="gallery-box clearfix">
+                                <div class="img-gallery" *ngFor="let item of otherImages">
+                                    <li>
+                                        <img [src]="item.image_file" (click)="onImageOpen(item)">
+                                        <div class="img-delete">
+                                            <i class="fa fa-trash-alt" (click)="onImageDelete(item)"></i>
+                                        </div>
+                                    </li>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="no-image" *ngIf="!isOtherImagesAvailable">No Images To Display</div>
+
+                    <div id="image_preview"></div>
+                </div>
+                <div class="clearfix"></div>
+                <hr>
+                <div class="col-md-12 text-center">
+                    <!-- <button class="btn btn-round waves-effect waves-light">Save</button> -->
+                    <button type="submit" class="btn btn-warning" (click)="vehicleDetailSubmit()">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

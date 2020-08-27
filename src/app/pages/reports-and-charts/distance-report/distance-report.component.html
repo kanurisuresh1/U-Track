@@ -1,0 +1,247 @@
+<div class="row clearfix mb15">
+    <div class="col-md-10 text-left">
+        <button class="btn btn-primary mr15 btn-sm" nbTooltip="Back" nbTooltipStatus="primary"
+            [nbTooltipIcon]="{icon: 'arrow-back-outline', pack: 'eva'}" (click)="back()"><i class="fa fa-arrow-left"
+                aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
+
+<div [formGroup]="distanceReportForm">
+    <div class="row clearfix">
+
+        <div class="col-md-2">
+            <div class="form-group">
+
+                <label>Select Vehicle</label>
+                <mat-select class="form-control" formControlName="vechicleName" [(ngModel)]="deviceLinkId"
+                    placeholder="Select Vehicle">
+                    <mat-option *ngFor='let row of vehicles' [value]="row.device_link_id">
+                        {{row.vehicle_number}}</mat-option>
+                </mat-select>
+            </div>
+
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>Select Time Interval</label>
+                <mat-select class="form-control" formControlName="vehicleTimeInterval" [(ngModel)]="selectTimeInterval"
+                    (selectionChange)="onSelectChange($event.value)" placeholder="Select Time Interval">
+                    <!-- <mat-option #GeofenceSelected (click)="selectAllGeofences()" [value]="0">Select All</mat-option>
+                    <mat-option *ngFor='let row of geofenceList' [value]="row.geofence_id">
+                        {{row.geofence_name}}</mat-option> -->
+                    <mat-option [value]="10">All</mat-option>
+                    <mat-option [value]="60">Above 1 Minute</mat-option>
+                    <mat-option [value]="120">Above 2 Minutes</mat-option>
+                    <mat-option [value]="300">Above 5 Minutes</mat-option>
+                    <mat-option [value]="900">Above 15 Minutes</mat-option>
+                    <mat-option [value]="3600">Above 1 Hour</mat-option>
+                    <mat-option [value]="7200">Above 2 Hours</mat-option>
+                    <mat-option [value]="21600">Above 6 Hours</mat-option>
+                    <mat-option [value]="43200">Above 12 Hours</mat-option>
+                    <mat-option [value]="86400">Above 1 Day</mat-option>
+                </mat-select>
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <!-- <label>Start Date<span class="required">*</span></label> -->
+                <mat-form-field class="no-line">
+                    <mat-label>Select Start Date</mat-label>
+                    <!-- #docregion toggle -->
+                    <input class="form-control datepicker" matInput [max]="todayDate" [min]="minDate"
+                        [matDatetimepicker]="stateDatepicker" formControlName="startDate">
+                    <mat-datetimepicker-toggle matSuffix [for]="stateDatepicker"></mat-datetimepicker-toggle>
+                    <mat-datetimepicker #stateDatepicker type="datetime" openOnFocus="true" timeInterval="1">
+                    </mat-datetimepicker>
+                    <!-- #enddocregion toggle -->
+                </mat-form-field>
+            </div>
+        </div>
+
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <!-- <label>End Date <span class="required">*</span></label> -->
+                <mat-form-field class="no-line">
+                    <mat-label>Select End Date</mat-label>
+                    <!-- #docregion toggle -->
+                    <input class="form-control datepicker" matInput [max]="todayDate" [min]="endMinDate"
+                        [matDatetimepicker]="endDatepicker" formControlName="endDate">
+                    <mat-datetimepicker-toggle matSuffix [for]="endDatepicker"></mat-datetimepicker-toggle>
+                    <mat-datetimepicker #endDatepicker type="datetime" openOnFocus="true" timeInterval="1">
+                    </mat-datetimepicker>
+                    <!-- #enddocregion toggle -->
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" (click)="viewReport()" class="btn btn-primary sub">View Report</button>
+        </div>
+    </div>
+</div>
+
+<mat-tab-group>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">art_track</mat-icon>
+            Distance Report
+        </ng-template>
+
+
+        <div class="row clearfix mt15 mb15">
+            <div class="col-md-10 text-left">
+
+
+                <button class="btn btn-danger pull-left mr15 btn-sm" mat-button
+                    (click)="exporter.exportTable('xlsx', {fileName:'DistanceReport', sheet: 'DistanceReport', Props: {Author: 'Talha'}})"><i
+                        class="fa fa-file-excel"></i> &nbsp; Export
+                    To Excel</button>
+                <button class="btn btn-primary pull-left mr15 btn-sm" (click)="downloadPDF()" mat-button><i
+                        class="fa fa-file-pdf"></i>
+                    &nbsp; Export To PDF</button>
+
+            </div>
+        </div>
+
+
+        <div>
+            <div class="example-container mat-elevation-z8" id="content" #content>
+                <div class="table-responsive" style="height: 500px;overflow: auto !important;">
+                    <table matTableExporter #exporter="matTableExporter" class="table-bordered table" mat-table
+                        [dataSource]="stoppageReportdataSource" matSort>
+
+                        <ng-container matColumnDef="id">
+                            <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                            <td mat-cell *matCellDef="let element; let i = index;"> {{(i+1)}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="from_date">
+                            <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>From
+                                Date & Time
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{element.fromDate | date : 'dd MMM yyyy hh:mm:ss a'}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="to_date">
+                            <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>To Date
+                                & Time
+                            </th>
+                            <td mat-cell *matCellDef="let element">{{element.toDate | date : 'dd MMM yyyy hh:mm:ss a'}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="type">
+                            <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>Type
+                            </th>
+                            <td mat-cell *matCellDef="let element" [ngClass]="vehicleColors"> {{element.motionType}}
+                            </td>
+
+
+                        </ng-container>
+
+                        <ng-container matColumnDef="duration">
+                            <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Duration(HH:MM:SS)
+                            </th>
+                            <td mat-cell *matCellDef="let element">{{element.durationFormatted}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="distance">
+                            <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Distance(KMS)
+                            </th>
+                            <td mat-cell *matCellDef="let element">{{element.distance}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="landmark">
+                            <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>Landmark
+                            </th>
+                            <td mat-cell *matCellDef="let element">{{element.ln}}</td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="stoppageDisplayedColumns;sticky:true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: stoppageDisplayedColumns;"></tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </mat-tab>
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">poll</mat-icon>
+            Raw Data
+        </ng-template>
+
+        <div class="row clearfix mt15 mb15">
+            <div class="col-md-10 text-left">
+
+
+                <button class="btn btn-danger pull-left mr15 btn-sm" mat-button
+                    (click)="rawexporter.exportTable('xlsx', {fileName:'DistanceRawReport', sheet: 'DistanceRawReport', Props: {Author: 'Talha'}})"><i
+                        class="fa fa-file-excel"></i> &nbsp; Export
+                    To Excel</button>
+                <button class="btn btn-primary pull-left mr15 btn-sm" (click)="downloadStoppageRawPDF()" mat-button><i
+                        class="fa fa-file-pdf"></i>
+                    &nbsp; Export To PDF</button>
+
+            </div>
+        </div>
+
+        <div>
+            <div class="example-container mat-elevation-z8" id="content" #content>
+                <div class="table-responsive" style="height: 500px;overflow: auto !important;">
+                    <table matTableExporter #rawexporter="matTableExporter" class="table-bordered table" mat-table
+                        [dataSource]="dataSource" matSort>
+
+                        <ng-container matColumnDef="id">
+                            <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                            <td mat-cell *matCellDef="let element; let i = index;"> {{(i+1)}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="date">
+                            <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>Date
+                            </th>
+                            <td mat-cell *matCellDef="let element">{{element.date | date : 'dd MMM yyyy hh:mm:ss a'}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="speed">
+                            <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Speed(KMPH)
+                            </th>
+                            <td mat-cell *matCellDef="let element">{{element.s}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="distance">
+                            <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Distance(KMS)
+                            </th>
+                            <td mat-cell *matCellDef="let element">{{element.d}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="landmark">
+                            <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>Landmark
+                            </th>
+                            <td mat-cell *matCellDef="let element">{{element.ln}}</td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </mat-tab>
+
+</mat-tab-group>

@@ -1,0 +1,80 @@
+<div class="row clearfix">
+    <div class="col-md-10 text-left">
+        <button class="btn btn-primary mb10 btn-sm" nbTooltip="Back" nbTooltipStatus="primary"
+            [nbTooltipIcon]="{icon: 'arrow-back-outline', pack: 'eva'}" (click)="back()"><i class="fa fa-arrow-left"
+                aria-hidden="true"></i>
+        </button>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 white-bg no-pad">
+
+        <div class="card-body">
+            <div class="row" [formGroup]="contactUsForm">
+                <div class="col-md-3 mb30">
+                    <div class="form-group">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Subject</mat-label>
+                            <input type="text" matInput formControlName="subject">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-group">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Discription</mat-label>
+                            <textarea type="text" matInput formControlName="discription"></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="clearfix mb20"></div>
+                    <button (click)="contactUs()" class="btn btn-round">Submit</button>
+                </div>
+
+                <div class="col-md-4 col-md-offset-1 mt20 mb30 address">
+                    <h6 class="mb20"><b>Ramki Technologies Private Limited</b></h6>
+                    <div class="col-md-12 mb20 no-pad">
+                        <h6 class="mb10"><b>CORPORATE OFFICE</b></h6>
+                        <p>Ramki Technologies Private Limited<br>
+                            1-8-448, Lakshmi Building, 5th Floor, <br>
+                            Begumpet, Hyderabad – 500003.<br>
+                            Email: <a href="mailto:info@ramkigroup.com">info@ramkigroup.com</a><br>
+                            Cell: <a href="tel:+91  9959045474">+91 9154153335</a></p>
+                        <div class="clearfix mt20 mb20">
+                            <h6><b>Call and Support Time</b></h6>
+                            <p>24/7 Support</p>
+                        </div>
+
+                        <div class="clearfix mb30 hidden-xs"></div>
+                        <div class="clearfix mt20 mb20">
+                            <h6><b>FOLLOW US</b></h6>
+                            <div>
+                                <ul class="social-network social-circle">
+                                    <li><a href="https://www.instagram.com/pragatiutrack" target="_blank" class="icoRss"><i
+                                                class="fab fa-instagram"></i></a></li>
+                                    <li><a href="https://www.facebook.com/pragatiutrackbyramkitechnologies" target="_blank"
+                                            class="icoFacebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                    </li>
+                                    <li><a href="https://twitter.com/PragatiUtrack" target="_blank" class="icoTwitter"><i
+                                                class="fab fa-twitter"></i></a></li>
+                                    <li><a href=" https://in.pinterest.com/pragatiutrackbyramki/" target="_blank" class="icoGoogle"><i
+                                                class="fab fa-pinterest"></i></a></li>
+                                    <li><a href=" https://www.linkedin.com/company/pragati-u-track/" target="_blank" class="icoLinkedin"
+                                            title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb30 mt20">
+                    <h6 class="mb10"><b>Our Location</b></h6>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15225.347953387913!2d78.4736324!3d17.4435777!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xafd3d2da40787286!2sRamki%20Technologies%20Pvt.Ltd!5e0!3m2!1sen!2sin!4v1582181616049!5m2!1sen!2sin"
+                        width="100%" height="380" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

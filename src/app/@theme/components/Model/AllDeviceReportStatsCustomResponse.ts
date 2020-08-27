@@ -1,0 +1,29 @@
+export interface AllDeviceReportStatsCustomResponse {
+    status: boolean;
+    message: string;
+    data?: AllDeviceReportStatsCustom[] ;
+  }
+  export interface AllDeviceReportStatsCustom {
+    device_link_id: string;
+    device_id: string;
+    vehicle_number: string;
+    vehicle_type: string;
+    detail?: DetailEntity[];
+    max_speed: string;
+    avg_speed: string;
+    total_distance: string;
+    total_travelled_time: string;
+    max_speed_formatted: string;
+    avg_speed_formatted: string;
+    total_distance_formatted: string;
+    total_travelled_time_formatted: string;
+
+  }
+  export interface DetailEntity {
+    max_speed: string;
+    avg_speed: string;
+    total_travelled_time: string;
+    total_distance: string;
+    report_date: string;
+  }
+  

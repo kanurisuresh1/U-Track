@@ -1,0 +1,33 @@
+<div class="header-container">
+  <div class="logo-container">
+    <a (click)="toggleSidebar()" href="#" class="sidebar-toggle">
+      <nb-icon icon="menu-2-outline"></nb-icon>
+    </a>
+    <a class="logo" href="#" (click)="navigateHome()"><span><img style="width: 150px;" src="assets/images/ramkiLogo.png"></span></a>
+  </div>
+  <nb-select [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">
+    <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
+  </nb-select>
+</div>
+<div style="margin-top: 15px;"><h4 id="id"></h4></div>
+
+
+<div class="header-container">
+  <nb-actions size="small">
+
+    <!-- <nb-action class="control-item">
+      <nb-search type="rotate-layout"></nb-search>
+    </nb-action>
+    <nb-action class="control-item" icon="email-outline"></nb-action> -->
+    <nb-action class="control-item" icon="bell-outline" title="Notifications" (click)="navigateToNotifications()"></nb-action>
+    <nb-action class="user-action" *nbIsGranted="['view', 'user']" >
+      <nb-user [nbContextMenu]="userMenu"
+               [onlyPicture]="userPictureOnly"
+               [name]="userName"
+               [picture]="userPicture"
+               (itemClick)="onMenuItemClick($event)"
+               >
+      </nb-user>
+    </nb-action>
+  </nb-actions>
+</div>

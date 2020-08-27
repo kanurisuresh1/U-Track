@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-md-10 text-left">
+
+        <label>
+            <input type="search" matInput 
+                class="form-control search-field pull-left" placeholder="Search Vehicle">
+        </label>
+
+        <button class="btn btn-primary pull-left ml-20 mr15 btn-sm" ><i
+                class="fa fa-search"></i></button>
+
+    </div>
+    <div class="col-md-2 ml-auto text-right">
+        <div class="form-group">
+            <button class="btn btn-warning btn-sm" (click)="createGroup()"><b>Create Group</b></button>
+        </div>
+    </div>
+</div>
+<div class="white-bg">
+    <div class="row">
+
+        <div class="col-md-3 clearfix mb10 mt10 text-center" *ngFor='let MyGroup of MyGroupList'  >
+            <div class="buy-plans clearfix" (click)="editGroupList(MyGroup.group_id,MyGroup.group_name,MyGroup.group_icon_name,MyGroup.device_link_id_list)">
+                <div class="img-sample-box">
+                        <img src={{MyGroup.imagePath}} alt="" class="responsive img mt10">
+                    </div>
+                
+                <div class="col-md-12 text-center mt10 mb10 no-pad">
+                    <p>{{MyGroup.group_name}}</p>
+                    <h6><b>{{MyGroup.TotaldeviceListId}}</b></h6>
+                </div>
+            </div>
+        </div> 
+        </div>
+    </div>

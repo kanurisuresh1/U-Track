@@ -1,0 +1,474 @@
+<div class="row" id="btn_hide_registered_id">
+    <div class="col-md-10"></div>
+    <div class="col-md-2 ml-auto mb5 text-right">
+        <div class="form-group">
+            <button class="btn btn-warning btn-sm" (click)="addMyExecutive()"><b>My Executive</b></button>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 white-bg mb20">
+
+    <div style="border-radius:20px">
+        <div class="container-fluid">
+            <div class="card-body">
+                <div class="row" [formGroup]="myProfileForm">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <h3 class="mt5 text-primary">My Details</h3>
+                            <div class="bdr-btm mt10 md-form"></div>
+                            <div class="row mb-2 img-row mt20 mb10">
+                                <div class="col-sm-12 col-md-offset-6">
+                                    <!-- <div *ngIf="fileUploadProgress">
+                                          Upload progress: {{ fileUploadProgress }}
+                                      </div> -->
+                                    <div class="circle">
+                                        <div class="image-preview mb-3" *ngIf="previewUrl">
+                                            <img src={{previewUrl}} height="105" width="95" />
+                                        </div>
+                                    </div>
+
+                                    <div class="p-image">
+                                        <i type="button" class="fa fa-camera upload-button"
+                                            (click)="fileInput.click()"></i>
+                                        <input hidden type="file" formControlName="profileimage"
+                                            (change)="fileProgress($event)" #fileInput type="file" id="file" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt10">
+                                <div class="col-md-6">
+                                    <div class="form-group md-form">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>First Name<span class="required">*</span></mat-label>
+                                            <input type="text" matInput [(ngModel)]="fname" formControlName="firstname"
+                                                onkeypress="return /[a-z]/i.test(event.key)" maxlength="30"
+                                                placeholder="Enter First Name">
+                                            <mat-error
+                                                *ngIf="myProfileForm.controls['firstname'].errors && myProfileForm.controls['firstname'].touched">
+                                                <span *ngIf="myProfileForm.controls['firstname'].errors.required">Enter
+                                                    First Name</span>
+                                                <span *ngIf="myProfileForm.controls['firstname'].errors.minlength">Enter
+                                                    Minimum 3 Latter </span>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group md-form">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Last Name<span class="required">*</span></mat-label>
+                                            <input type="text" matInput [(ngModel)]="lname"
+                                                onkeypress="return /[a-z]/i.test(event.key)" formControlName="lastname"
+                                                maxlength="30" placeholder="Enter Last Name">
+                                            <mat-error
+                                                *ngIf="myProfileForm.controls['lastname'].errors && myProfileForm.controls['lastname'].touched">
+                                                <span *ngIf="myProfileForm.controls['lastname'].errors.required">Enter
+                                                    Last Name</span>
+                                                <span *ngIf="myProfileForm.controls['lastname'].errors.minlength">Enter
+                                                    Minimum 3 Latter </span>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt5">
+                                <div class="col-md-6">
+                                    <div class="form-group md-form">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Email ID<span class="required">*</span></mat-label>
+                                            <input type="text" matInput [(ngModel)]="email" formControlName="email"
+                                                readonly>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group md-form">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Mobile Number<span class="required">*</span></mat-label>
+                                            <input type="text" matInput [(ngModel)]="mnumber" formControlName="mnumber"
+                                                readonly>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt5">
+                                <div class="col-md-6">
+                                    <div class="form-group md-form">
+                                        <label>State <span class="required">*</span></label>
+                                        <select class="form-control" [(ngModel)]="state_id" formControlName="state"
+                                            (change)="statesChange($event)">
+                                            <option value="" disabled>Select State</option>
+                                            <option *ngFor='let row of states' [ngValue]="row.state_id">{{ row.state }}
+                                            </option>
+                                        </select>
+                                        <div
+                                            *ngIf="myProfileForm.controls['state'].errors && myProfileForm.controls['state'].touched">
+                                            <span *ngIf="myProfileForm.controls['state'].errors.required"
+                                                style="color:red">Select State</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group md-form">
+                                        <label>District <span class="required">*</span></label>
+                                        <select class="form-control" [(ngModel)]="district_id"
+                                            formControlName="district">
+                                            <option value="" disabled>Select District</option>
+                                            <option *ngFor='let row of districts' [ngValue]="row.district_id">
+                                                {{ row.district }}</option>
+                                        </select>
+                                        <div
+                                            *ngIf="myProfileForm.controls['district'].errors && myProfileForm.controls['district'].touched">
+                                            <span *ngIf="myProfileForm.controls['district'].errors.required"
+                                                style="color:red">Select
+                                                District</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt5">
+                                <div class="col-md-6">
+                                    <div class="form-group md-form">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Area Name <span class="required">*</span></mat-label>
+                                            <input type="text" matInput [(ngModel)]="AreaName"
+                                                onkeypress="return /[a-z]/i.test(event.key)" formControlName="AreaName"
+                                                maxlength="30" placeholder="Enter Area Name">
+                                            <mat-error
+                                                *ngIf="myProfileForm.controls['AreaName'].errors && myProfileForm.controls['AreaName'].touched">
+                                                <span *ngIf="myProfileForm.controls['AreaName'].errors.required">Enter
+                                                    Area Name</span>
+                                                <span *ngIf="myProfileForm.controls['AreaName'].errors.minlength">Enter
+                                                    Minimum 3 Latter </span>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group md-form">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Pincode <span class="required">*</span></mat-label>
+                                            <input type="text" [(ngModel)]="pincode" matInput formControlName="pincode"
+                                                maxlength="6"
+                                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                                placeholder="Enter Pin Code">
+                                            <mat-error
+                                                *ngIf="myProfileForm.controls['pincode'].errors && myProfileForm.controls['pincode'].touched">
+                                                <span *ngIf="myProfileForm.controls['pincode'].errors.required">Enter
+                                                    Pincode Number</span>
+                                                <span *ngIf="myProfileForm.controls['pincode'].errors.minlength">Pincode
+                                                    number must 6 digits</span>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 mt5">
+                                <div class="form-group md-form">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Address <span class="required">*</span></mat-label>
+                                        <input type="text" matInput [(ngModel)]="Address"
+                                            onkeypress="return /[a-z]/i.test(event.key)" formControlName="Address"
+                                            maxlength="50" placeholder="Enter Address">
+                                        <mat-error
+                                            *ngIf="myProfileForm.controls['Address'].errors && myProfileForm.controls['Address'].touched">
+                                            <span *ngIf="myProfileForm.controls['Address'].errors.required">Enter
+                                                Address</span>
+                                            <span *ngIf="myProfileForm.controls['Address'].errors.minlength">Enter
+                                                Minimum 3 Latter </span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <h3 class="mt5 text-primary">Driving Licence Details</h3>
+                            <div class="bdr-btm mt10 md-form"></div>
+                            <div class="col-md-12 mb30 space">
+                                <small>Licence Front</small>
+                                <div class="clearfix mb10"></div>
+                                <div class="profile-sample" *ngIf="lincencefrontviewUrl">
+                                    <img src={{lincencefrontviewUrl}} height="200" width="90"
+                                        class="img-responsive bdr-box" />
+                                    <div class="middle">
+                                        <div class="sampleimageicons">
+                                            <i class="fa fa-trash-alt" (click)="lincencefrontfileInput.click()"></i>
+                                            <input hidden type="file" formControlName="lincenceFrontImage"
+                                                (change)="lincencefrontfileProgress($event)" #lincencefrontfileInput
+                                                id="file" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 mb30 space">
+                                <small>Licence Back</small>
+                                <div class="clearfix mb10"></div>
+                                <div class="profile-sample" *ngIf="lincenceBackviewUrl">
+                                    <img src={{lincenceBackviewUrl}} height="200" width="90"
+                                        class="img-responsive bdr-box" />
+                                    <div class="middle">
+                                        <div class="sampleimageicons">
+                                            <i class="fa fa-trash-alt" (click)="lincenceBackfileInput.click()"></i>
+                                            <input hidden type="file" formControlName="lincenceBackImage"
+                                                (change)="lincenceBackfileProgress($event)" #lincenceBackfileInput
+                                                id="file" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 mt5">
+                                <div class="form-group md-form">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Driving Lincene ID <span class="required">*</span></mat-label>
+                                        <input type="text" matInput [(ngModel)]="DrivingLinceneID"
+                                            formControlName="DrivingLinceneID" maxlength="50"
+                                            placeholder="Enter Driving Lincene ID">
+                                        <mat-error
+                                            *ngIf="myProfileForm.controls['DrivingLinceneID'].errors && myProfileForm.controls['DrivingLinceneID'].touched">
+                                            <span
+                                                *ngIf="myProfileForm.controls['DrivingLinceneID'].errors.required">Enter
+                                                Driving Lincene ID</span>
+                                            <!-- <span *ngIf="createAdminForm.controls['DrivingLinceneID'].errors.minlength">Enter Minimum 3 Latter </span> -->
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt5">
+                                <div class="form-group md-form">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>PAN ID <span class="required">*</span></mat-label>
+                                        <input type="text" matInput maxlength="50" placeholder="Enter PANID">
+                                        <!-- <mat-error
+                                              *ngIf="myProfileForm.controls['PANID'].errors && myProfileForm.controls['PANID'].touched">
+                                              <span *ngIf="myProfileForm.controls['PANID'].errors.required">Enter Address</span>
+                                              <span *ngIf="createAdminForm.controls['PANID'].errors.minlength">Enter Minimum 3 Latter </span> 
+                                            </mat-error>  -->
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <h3 class="mt5 text-primary">Company Details</h3>
+                            <div class="bdr-btm mt10 md-form"></div>
+                            <div class="col-md-12 mb10">
+                                <small>Company Logo</small>
+                            </div>
+
+                            <div class="col-md-8 mb10">
+                                <div class="profile-sample bdr-box" *ngIf="companyLogoviewUrl">
+                                    <img src={{companyLogoviewUrl}} height="140" width="60" class="img-responsive" />
+                                    <div class="middle">
+                                        <div class="sampleimageicons">
+                                            <i class="fa fa-trash-alt" (click)="companyLogofileInput.click()"></i>
+                                            <input hidden type="file" formControlName="companyLogoImage"
+                                                (change)="companyLogofileProgress($event)" #companyLogofileInput
+                                                id="file" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 mt5">
+                                <div class="form-group md-form">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Company Name <span class="required">*</span></mat-label>
+                                        <input type="text" matInput [(ngModel)]="CompanyName"
+                                            formControlName="CompanyName" maxlength="50"
+                                            placeholder="Enter Company Name">
+                                        <mat-error
+                                            *ngIf="myProfileForm.controls['CompanyName'].errors && myProfileForm.controls['CompanyName'].touched">
+                                            <span *ngIf="myProfileForm.controls['CompanyName'].errors.required">Enter
+                                                Company Name</span>
+                                            <span *ngIf="myProfileForm.controls['CompanyName'].errors.minlength">Enter
+                                                Minimum 3 Latter </span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row mt5">
+                                <div class="col-md-6">
+                                    <div class="md-form">
+                                        <label>State <span class="required">*</span></label>
+                                        <select class="form-control" [(ngModel)]="company_state_id"
+                                            formControlName="companystate" (change)="statesChange($event)">
+                                            <option value="" disabled>Select State</option>
+                                            <option *ngFor='let row of states' [ngValue]="row.state_id">{{ row.state }}
+                                            </option>
+                                        </select>
+                                        <div
+                                            *ngIf="myProfileForm.controls['companystate'].errors && myProfileForm.controls['companystate'].touched">
+                                            <span *ngIf="myProfileForm.controls['companystate'].errors.required"
+                                                style="color:red">Select State</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="md-form">
+
+                                        <label>District <span class="required">*</span></label>
+                                        <select class="form-control" [(ngModel)]="company_district_id"
+                                            formControlName="companydistrict">
+                                            <option value="" disabled>Select District</option>
+                                            <option *ngFor='let row of companydistricts' [ngValue]="row.district_id">
+                                                {{ row.district }}</option>
+                                        </select>
+                                        <div
+                                            *ngIf="myProfileForm.controls['companydistrict'].errors && myProfileForm.controls['companydistrict'].touched">
+                                            <span *ngIf="myProfileForm.controls['companydistrict'].errors.required"
+                                                style="color:red">Select
+                                                District</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt5">
+                            <div class="col-md-6">
+                                <div class="form-group md-form">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Company Area <span class="required">*</span></mat-label>
+                                        <input type="text" matInput [(ngModel)]="CompanyArea"
+                                            formControlName="CompanyArea" maxlength="50"
+                                            placeholder="Enter Company Area">
+                                        <mat-error
+                                            *ngIf="myProfileForm.controls['CompanyArea'].errors && myProfileForm.controls['CompanyArea'].touched">
+                                            <span *ngIf="myProfileForm.controls['CompanyArea'].errors.required">Enter
+                                                Address</span>
+                                            <span *ngIf="myProfileForm.controls['CompanyArea'].errors.minlength">Enter
+                                                Minimum 3 Latter </span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group md-form">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Company Pincode <span class="required">*</span></mat-label>
+                                        <input type="text" [(ngModel)]="CompanyPincode" matInput
+                                            formControlName="CompanyPincode" maxlength="6"
+                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                            placeholder="Enter Company Pincode">
+                                        <mat-error
+                                            *ngIf="myProfileForm.controls['CompanyPincode'].errors && myProfileForm.controls['CompanyPincode'].touched">
+                                            <span *ngIf="myProfileForm.controls['CompanyPincode'].errors.required">Enter
+                                                Company Pincode Number</span>
+                                            <span
+                                                *ngIf="myProfileForm.controls['CompanyPincode'].errors.minlength">Pincode
+                                                number must 6 digits</span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12 mt5">
+                            <div class="form-group md-form">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Company Address <span class="required">*</span></mat-label>
+                                    <input type="text" matInput [(ngModel)]="CompanyAddress"
+                                        formControlName="CompanyAddress" maxlength="50"
+                                        placeholder="Enter Company Address">
+                                    <mat-error
+                                        *ngIf="myProfileForm.controls['CompanyAddress'].errors && myProfileForm.controls['CompanyAddress'].touched">
+                                        <span *ngIf="myProfileForm.controls['CompanyAddress'].errors.required">Enter
+                                            Company Address</span>
+                                        <span *ngIf="myProfileForm.controls['CompanyAddress'].errors.minlength">Enter
+                                            Minimum 3 Latter </span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 mt5">
+                            <div class="form-group md-form">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Company Landmark <span class="required">*</span></mat-label>
+                                    <input type="text" matInput [(ngModel)]="CompanyLandmark"
+                                        formControlName="CompanyLandmark" maxlength="50"
+                                        placeholder="Enter Company Landmark">
+                                    <mat-error
+                                        *ngIf="myProfileForm.controls['CompanyLandmark'].errors && myProfileForm.controls['CompanyLandmark'].touched">
+                                        <span *ngIf="myProfileForm.controls['CompanyLandmark'].errors.required">Enter
+                                            Company Landmark</span>
+                                        <span *ngIf="myProfileForm.controls['CompanyLandmark'].errors.minlength">Enter
+                                            Minimum 3 Latter </span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row mt5">
+                            <div class="col-md-6">
+                                <div class="form-group md-form">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Company Email ID<span class="required">*</span></mat-label>
+                                        <input type="text" matInput [(ngModel)]="CompanyEmail"
+                                            formControlName="CompanyEmail" maxlength="40"
+                                            placeholder="Enter Company Email">
+                                        <mat-error
+                                            *ngIf="myProfileForm.controls['CompanyEmail'].errors && myProfileForm.controls['CompanyEmail'].touched">
+                                            <span *ngIf="myProfileForm.controls['CompanyEmail'].errors.required">Enter
+                                                Company Email ID</span>
+                                            <mat-error *ngIf="myProfileForm.controls['CompanyEmail'].errors.email">Email
+                                                ID must be a valid</mat-error>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group md-form">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Company Phone<span class="required">*</span></mat-label>
+                                        <input type="text" matInput [(ngModel)]="CompanyPhone" pattern="^[6-9]\d{9}$"
+                                            formControlName="CompanyPhone" maxlength="10"
+                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                            placeholder="Enter Company Phone">
+
+                                        <mat-error
+                                            *ngIf="myProfileForm.controls['CompanyPhone'].errors && myProfileForm.controls['CompanyPhone'].touched">
+                                            <span *ngIf="myProfileForm.controls['CompanyPhone'].errors.minlength">Mobile
+                                                number must 10
+                                                digits</span>
+                                            <span *ngIf="myProfileForm.controls['CompanyPhone'].errors.pattern">Mobile
+                                                Number Should
+                                                start with 6 ,7,8,9</span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4 col-md-offset-4 mt30">
+                        <button class="btn btn-round" (click)="editMyProfile()">Update</button>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

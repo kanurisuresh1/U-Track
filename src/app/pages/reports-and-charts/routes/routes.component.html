@@ -1,0 +1,13 @@
+<p>routes works!</p>
+<button class="btn btn-warning" (click)="back()">Back</button>
+<nb-icon icon="star"></nb-icon>
+<nb-icon icon="star" pack="font-awesome"></nb-icon>
+<i class="fa fa-file"></i>
+
+
+<mat-form-field>
+    <mat-placeholder>Start DateTime</mat-placeholder>
+    <input matInput [matDatetimepicker]="dts" required>
+    <mat-datetimepicker-toggle [for]="dts" matSuffix></mat-datetimepicker-toggle>
+    <mat-datetimepicker #dts type="datetime" openOnFocus="true"></mat-datetimepicker>
+</mat-form-field>

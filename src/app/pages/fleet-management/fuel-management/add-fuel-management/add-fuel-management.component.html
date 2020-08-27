@@ -1,0 +1,133 @@
+<mat-dialog-actions [formGroup]="createFuelReportForm">
+    <h4 *ngIf="isAddFuel">Add Fuel Filling : </h4>
+    <h4 *ngIf="!isAddFuel">Edit Fuel Filling : </h4>
+    <div class="col-md-4">
+        <div class="form-group">
+            <!-- <label for="exampleInputEmail1">Vehicle Number <span class="required">*</span></label> -->
+            <select class="form-control" [(ngModel)]="deviceLinkId" formControlName="vechicleName">
+                <option *ngFor='let row of vehicles' [ngValue]="row.device_link_id">{{ row.vehicle_number }}</option>
+
+            </select>
+        </div>
+    </div>
+
+    <!-- <mat-form-field appearance="fill">
+        <label>Select Vehicle</label>
+        <mat-select formControlName="vechicleName">
+            <mat-option *ngFor='let row of vehicles' [value]="row">{{ row.vehicle_number }}</mat-option>
+        </mat-select>
+    </mat-form-field> -->
+
+    <div style="border-radius:10px">
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Filling Date <span class="required">*</span></label>
+                                <mat-form-field class="no-line">
+                                    <mat-label>Choose Filling Date</mat-label>
+                                    <!-- #docregion toggle -->
+                                    <input matInput class="form-control datepicker" [matDatepicker]="picker" [max]="todayDate"
+                                        [(ngModel)]="filling_date" formControlName="fillingDate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                    <!-- #enddocregion toggle -->
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Odometer Reading<span class="required">*</span></label>
+                                <input type="text" name="odometerReading" [(ngModel)]="odometer_reading"
+                                    formControlName="odometerReading" maxlength="10"
+                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                    class="form-control" placeholder="Enter Odometer Reading">
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Total Price<span class="required">*</span></label>
+                                <input type="text" name="totalPrice" [(ngModel)]="total_price"
+                                    formControlName="totalPrice" class="form-control" maxlength="40"
+                                    placeholder="Enter Total Price">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Price Per Liter</label>
+                                <input type="text" name="pricePerLiter" [(ngModel)]="price_per_liter"
+                                    formControlName="pricePerLiter" class="form-control" maxlength="40"
+                                    placeholder="Enter Per Liter">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Fuel Quantiity in Liters</label>
+                                <input type="text" style="text-transform: capitalize;" name="fuelQuantity"
+                                    [(ngModel)]="fuel_quantity_in_ltr"
+                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                    formControlName="fuelQuantity" maxlength="30" class="form-control"
+                                    placeholder="Enter Fuel Quantiity">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Filling Station Name</label>
+                                <input type="text" name="address2" style="text-transform: capitalize;"
+                                    onkeypress="return /[a-z]/i.test(event.key)" formControlName="fillingStationName"
+                                    [(ngModel)]="filling_station_name" maxlength="30" class="form-control"
+                                    placeholder="Enter Filling Station Name">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Filling Station Note</label>
+                                <input type="text" name="address2" style="text-transform: capitalize;"
+                                    onkeypress="return /[a-z]/i.test(event.key)" formControlName="fillingStationNote"
+                                    [(ngModel)]="filling_station_notes" maxlength="30" class="form-control"
+                                    placeholder="Enter Filling Station Note">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <mat-card-actions>
+                                    <label for="myfile">Select a file:</label>
+                                    <input class="btn" formControlName="fileData" type="file" id="myfile" name="myfile">
+                                </mat-card-actions>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12 text-center">
+                            <div class="form-group">
+                                <button type="submit" *ngIf="this.isAddFuel" class="btn btn-primary mrleftright"
+                                    (click)="submit()" [disabled]="createFuelReportForm.invalid"
+                                    mat-dialog-close="isAddFuel">Submit</button>
+                                <button type="submit" *ngIf="!this.isAddFuel" class="btn btn-primary mrleftright"
+                                    (click)="submit()" mat-dialog-close="!isAddFuel">Update</button>
+                                <button type="submit" mat-dialog-close="false"
+                                    class="btn btn-warning mrleftright">Cancel</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+
+
+</mat-dialog-actions>

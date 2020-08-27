@@ -1,0 +1,130 @@
+<div class="fix-part">
+    <div class="row clearfix">
+        <div class="col-md-10 text-left">
+            <button class="btn btn-primary mr15 btn-sm" nbTooltip="Back" nbTooltipStatus="primary"
+                [nbTooltipIcon]="{icon: 'arrow-back-outline', pack: 'eva'}" (click)="back()"><i class="fa fa-arrow-left"
+                    aria-hidden="true"></i>
+            </button>
+
+            <label>
+                <input type="search" matInput id="search_element" (keyup)="applyFilter($event)"
+                    class="form-control search-field pull-left" placeholder="Search Vehicle">
+            </label>
+
+            <button class="btn btn-primary pull-left ml-20 mr15 btn-sm" (click)="search()"><i
+                    class="fa fa-search"></i></button>
+
+            <button class="btn btn-success pull-left mr15 btn-sm"><i class="fa fa-filter"
+                    aria-hidden="true"></i>Filter</button>
+            <button class="btn btn-danger pull-left mr15 btn-sm" mat-button
+                (click)="exporter.exportTable('xlsx', {fileName:'FuelDetails', sheet: 'FuelDetails', Props: {Author: 'Talha'}})"><i
+                    class="fa fa-file-excel"></i> &nbsp; Export To Excel</button>
+            <button class="btn btn-primary pull-left mr15 btn-sm" mat-button (click)="downloadPDF()"><i
+                    class="fa fa-file-pdf"></i>
+                &nbsp; Export To PDF</button>
+            <button class="btn btn-success pull-left mr1 btn-sm" nbTooltip="Refresh" (click)="refresh()"
+                nbTooltipStatus="success" [nbTooltipIcon]="{icon: 'refresh-outline', pack: 'eva'}"><i
+                    class="fa fa-sync"></i></button>
+        </div>
+        <div class="col-md-2 ml-auto text-right">
+            <div class="form-group">
+                <button class="btn btn-warning btn-sm" (click)="add()"><b>+ Add Fuel Reports</b></button>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div>
+                <div class="example-container mat-elevation-z8" id="content" #content>
+                    <div class="table-responsive" style="height: 500px; overflow: auto !important;">
+                        <table matTableExporter #exporter="matTableExporter" class="table-bordered table" mat-table
+                            [dataSource]="dataSource" matSort>
+
+                            <ng-container matColumnDef="id">
+                                <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header> ID
+                                </th>
+                                <td mat-cell *matCellDef="let element; let i = index;"> {{(i+1)}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="vehicle_number">
+                                <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Vehicle Number
+                                </th>
+                                <td class="cellSpace" mat-cell *matCellDef="let element">{{element.vehicle_number}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="added_date">
+                                <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>Date
+                                </th>
+                                <td mat-cell *matCellDef="let element">{{element.added_date | date: 'dd/MMM/yyyy'}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="odometer_reading">
+                                <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Odometer
+                                    Reading
+                                </th>
+                                <td class="cellSpace" mat-cell *matCellDef="let element"> {{element.odometer_reading}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="quantity">
+                                <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Quantity
+                                </th>
+                                <td mat-cell class="cellSpace" *matCellDef="let element"> {{element.quantity}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="price_per_liter">
+                                <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Price Per Liter
+                                </th>
+                                <td mat-cell class="cellSpace" *matCellDef="let element"> {{element.price_per_liter}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="total_cost">
+                                <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Total Price</th>
+                                <td mat-cell *matCellDef="let element"> {{element.total_cost}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="filling_station">
+                                <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Filling Station
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.filling_station}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="filling_notes">
+                                <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Filling Notes
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.filling_notes}} </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="Actions">
+                                <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Actions</th>
+                                <td mat-cell *matCellDef="let element"><a><i class="fa fa-edit text-blue "
+                                            (click)="edit(element)" style="cursor: pointer;color: blue;"></i></a><b> |
+                                    </b><a><i class="fa fa-trash-alt" (click)="delete(element)"
+                                            style="cursor: pointer;color: red;"></i></a> | <a><i class="fa fa-file-alt"
+                                            style="cursor: pointer;color: green;" (click)="openImage(element)"></i></a>
+                                </td>
+
+                            </ng-container>
+
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

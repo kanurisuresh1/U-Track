@@ -1,0 +1,86 @@
+<div class="container-fluid" style="padding:0;">
+  <div class="leftpannel pull-left"></div>
+  <div class="rightpannel pull-left clearfix">
+    <div class="login-section clearfix">
+      <div class="col-md-10">
+        <div class="main-logo">
+          <img src="assets/images/login/logo.png" alt="Utrack Web Application" class="mb20 img-responsive">
+        </div>
+
+        <h2 class="text-center mb20">LOGIN</h2>
+        <form [formGroup]="loginForm" (ngSubmit)="login()" class="user">
+          <div class="form-group">
+            <input type="text" maxlength="10" formControlName="number" class="form-control form-control-user"
+              oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="number"
+              placeholder="Enter Mobile Number">
+            <div *ngIf="loginForm.controls['number'].errors && loginForm.controls['number'].touched">
+              <span *ngIf="loginForm.controls['number'].errors.required" style="color:red;"> Mobile Number is
+                Must</span>
+              <span *ngIf="loginForm.controls['number'].errors.minlength" style="color:red;">phone number must 10
+                digits</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="password" formControlName="password" class="form-control form-control-user" name="password"
+              placeholder="Enter Password">
+            <div *ngIf="loginForm.controls['password'].errors && loginForm.controls['password'].touched">
+              <span *ngIf="loginForm.controls['password'].errors.required" style="color:red;"> password is Must</span>
+              <span *ngIf="loginForm.controls['password'].errors.minlength" style="color:red;">password Above 6
+                number</span>
+            </div>
+          </div>
+          <div class="clearfix mb20"></div>
+          <button class="btn btn-primary btn-user btn-block" [disabled]="loginForm.invalid">
+            Login
+          </button>
+          <div class="clearfix mb20"></div>
+          <div class="form-group">
+
+            <input formControlName="rememberMe" [(ngModel)]="isRemember" (change)="checked($event)" type="checkbox"
+              id="remember" />&nbsp;&nbsp;
+            <label>Remember Me</label>
+
+          </div>
+
+        </form>
+        <div class="clearfix mb20"></div>
+
+        <p class="pull-left"><a href="signup.html">Sign Up</a></p>
+        <p class="pull-right"><a href="javascript:void(0);" data-toggle="modal" data-target="#myModal">Forgot
+            Password</a></p>
+        <div class="clearfix mb40"></div>
+        <p class="text-center">Powred by</p>
+        <div class="foot-logo">
+          <img src="assets/images/login/ramki.png" alt="">
+        </div>
+
+        <p class="text-center">Ramki Technologies Pvt. Ltd</p>
+
+      </div>
+    </div>
+  </div>
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Forgot Password?</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="md-form">
+              <input type="text" id="inputMDEx" class="form-control" required />
+              <i class="fa fa-mobile pull-right" style="margin-top: -25px;"></i>
+              <label for="inputMDEx pull-left">Mobile Number</label>
+            </div>
+            <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-primary">OK</button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

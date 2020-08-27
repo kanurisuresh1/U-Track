@@ -1,0 +1,132 @@
+<mat-dialog-actions [formGroup]="createServiceReportForm">
+    <h4 *ngIf="isAddService">Add Servicing : </h4>
+    <h4 *ngIf="!isAddService">Edit Servicing : </h4>
+    <div class="col-md-3">
+        <div class="form-group">
+            <!-- <label for="exampleInputEmail1">Vehicle Number <span class="required">*</span></label> -->
+            <!-- <select class="form-control" [(ngModel)]="deviceLinkId" formControlName="vechicleName">
+                <option *ngFor='let row of vehicles' [ngValue]="row.device_link_id">{{ row.vehicle_number }}</option>
+
+            </select> -->
+            <mat-select class="form-control" [(ngModel)]="deviceLinkId" formControlName="vechicleName">
+                <mat-option *ngFor='let row of vehicles' [value]="row.device_link_id">
+                    {{row.vehicle_number}}</mat-option>
+            </mat-select>
+        </div>
+    </div>
+
+    <!-- <mat-form-field appearance="fill">
+        <label>Select Vehicle</label>
+        <mat-select formControlName="vechicleName">
+            <mat-option *ngFor='let row of vehicles' [value]="row">{{ row.vehicle_number }}</mat-option>
+        </mat-select>
+    </mat-form-field> -->
+
+    <div style="border-radius:10px">
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Servicing Date <span class="required">*</span></label>
+                                <mat-form-field class="no-line">
+                                    <mat-label>Choose Servicing Date</mat-label>
+                                    <!-- #docregion toggle -->
+                                    <input matInput class="form-control datepicker" [matDatepicker]="picker" [max]="todayDate"
+                                        [(ngModel)]="servicing_date" formControlName="servicingDate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                    <!-- #enddocregion toggle -->
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Service Cost<span class="required">*</span></label>
+                                <input type="text" name="totalPrice" [(ngModel)]="service_Cost"
+                                    formControlName="serviceCost" class="form-control" maxlength="40"
+                                    placeholder="Enter Total Price">
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Odometer Reading<span class="required">*</span></label>
+                                <input type="text" name="odometerReading" [(ngModel)]="odometer_reading"
+                                    formControlName="odometerReading" maxlength="10"
+                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                    class="form-control" placeholder="Enter Odometer Reading">
+
+                            </div>
+                        </div>
+                        <!-- mat select -->
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label>Services</label>
+                                    <mat-select class="form-control" formControlName="services_type" multiple>
+                                        <mat-option *ngFor='let services_type of services_type_list'
+                                            [value]="services_type.service_id">
+                                            {{services_type.service_name}}</mat-option>
+                                    </mat-select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Service Center Name</label>
+                                <input type="text" style="text-transform: capitalize;"
+                                    onkeypress="return /[a-z]/i.test(event.key)" formControlName="serviceStationName"
+                                    [(ngModel)]="service_station_name" maxlength="30" class="form-control"
+                                    placeholder="Enter Filling Station Name">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Service Center Notes</label>
+                                <input type="text" style="text-transform: capitalize;"
+                                    onkeypress="return /[a-z]/i.test(event.key)" formControlName="serviceStationNote"
+                                    [(ngModel)]="service_station_notes" maxlength="30" class="form-control"
+                                    placeholder="Enter Filling Station Note">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <mat-card-actions>
+                                    <label for="myfile">Select a file:</label>
+                                    <input class="btn" formControlName="fileData" type="file" id="myfile" name="myfile">
+                                </mat-card-actions>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12 text-center">
+                            <div class="form-group">
+                                <button type="submit" *ngIf="this.isAddService" class="btn btn-primary mrleftright"
+                                    (click)="submit()" [disabled]="createServiceReportForm.invalid"
+                                    mat-dialog-close="isAddService">Submit</button>
+                                <button type="submit" *ngIf="!this.isAddService" class="btn btn-primary mrleftright"
+                                    (click)="submit()" mat-dialog-close="!isAddService">Update</button>
+                                <button type="submit" mat-dialog-close="false"
+                                    class="btn btn-warning mrleftright">Cancel</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+
+
+</mat-dialog-actions>

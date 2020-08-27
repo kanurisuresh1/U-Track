@@ -1,0 +1,31 @@
+<mat-dialog-actions [formGroup]="changeEmail">
+    <div class="row">
+        <div class="col-md-12 text-left">
+         <h5>Please Enter New Email Address : </h5>
+        </div>
+        <hr>
+        <div class="col-md-12">
+            <mat-form-field  class="example-full-width">
+                <mat-label>Enter New Email Address</mat-label>
+                <input type="text" matInput maxlength="45" formControlName="email"   placeholder="Enter Email Address">
+                <mat-error
+                  *ngIf="changeEmail.controls['email'].errors && changeEmail.controls['email'].touched">
+                  <span *ngIf="changeEmail.controls['email'].errors.required">Enter Email ID</span>
+                  <mat-error *ngIf="changeEmail.controls['email'].errors.email">Email ID must be a valid</mat-error>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-md-12 text-right">
+            <div class="form-group mt20">
+                <button type="submit"  class="btn btn-primary mrleftright"
+                    (click)="submit()" [disabled]="changeEmail.invalid"
+                    mat-dialog-close="true">Change</button>
+                    &nbsp;&nbsp;
+                <button type="submit" mat-dialog-close="false"
+                    class="btn btn-warning mrleftright">Cancel</button>
+            </div>
+        </div>
+    </div>
+    </mat-dialog-actions>
+

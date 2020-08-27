@@ -1,0 +1,192 @@
+<mat-dialog-actions>
+    <h4 *ngIf="isAddUser">Add Customer : </h4>
+    <h4 *ngIf="!isAddUser">Edit Customer : </h4>
+
+    <div style="border-radius:10px" [formGroup]="createCustomerForm">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2 img-row">
+                    <div class="col-sm-12 col-md-offset-6">
+
+                        <div class="circle">
+                            <div class="image-preview mb-3" *ngIf="previewUrl">
+                                <img height="76" width="74" />
+                            </div>
+                        </div>
+
+                        <div class="p-image">
+                            <i type="button" class="fa fa-camera upload-button" (click)="fileInput.click()"></i>
+                            <input hidden type="file" [(ngModel)]="image" formControlName="image"
+                                (change)="fileProgress($event)" #fileInput type="file" id="file" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Full Name <span class="required">*</span></label>
+                                <input type="text" name="fullname" style="text-transform: capitalize;"
+                                    [(ngModel)]="full_name" onkeypress="return /[a-z]/i.test(event.key)"
+                                    formControlName="fullname" maxlength="30" class="form-control"
+                                    placeholder="Enter Full Name">
+                                <mat-error
+                                    *ngIf="createCustomerForm.controls['fullname'].errors && createCustomerForm.controls['fullname'].touched">
+                                    <span *ngIf="createCustomerForm.controls['fullname'].errors.required">Enter Full
+                                        Name</span>
+                                    <span *ngIf="createCustomerForm.controls['fullname'].errors.minlength">Enter Minimum
+                                        3
+                                        Latter
+                                    </span>
+                                </mat-error>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Mobile Number <span class="required">*</span></label>
+                                <input type="text" name="mobilenumber" [readonly]="isDisabled" style="text-transform: capitalize;"
+                                    [(ngModel)]="mobile_number" pattern="^[6-9]\d{9}$" formControlName="mobilenumber"
+                                    maxlength="10"
+                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                    class="form-control" placeholder="Enter Mobile Number">
+                                <mat-error
+                                    *ngIf="createCustomerForm.controls['mobilenumber'].errors && createCustomerForm.controls['mobilenumber'].touched">
+                                    <span *ngIf="createCustomerForm.controls['mobilenumber'].errors.required">Enter
+                                        Mobile
+                                        Number</span>
+                                    <span *ngIf="createCustomerForm.controls['mobilenumber'].errors.minlength">Mobile
+                                        number
+                                        must
+                                        10
+                                        digits</span>
+                                    <span *ngIf="createCustomerForm.controls['mobilenumber'].errors.pattern">Mobile
+                                        Number
+                                        Should
+                                        start with 6
+                                        ,7,8,9</span>
+                                </mat-error>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email ID<span class="required">*</span></label>
+                                <input type="text" name="email" [(ngModel)]="email_id" formControlName="email"
+                                    class="form-control" maxlength="40" placeholder="Enter Email ID">
+                                <mat-error
+                                    *ngIf="createCustomerForm.controls['email'].errors && createCustomerForm.controls['email'].touched">
+                                    <span *ngIf="createCustomerForm.controls['email'].errors.required">Enter Email
+                                        ID</span>
+                                    <mat-error *ngIf="createCustomerForm.controls['email'].errors.email">Email ID must
+                                        be a
+                                        valid
+                                    </mat-error>
+                                </mat-error>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Company Name</label>
+                                <input type="text" name="companyName" style="text-transform: capitalize;"
+                                    [(ngModel)]="company_name" formControlName="companyName" class="form-control"
+                                    maxlength="40" placeholder="Enter Company Name">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">State <span class="required">*</span></label>
+                                <select class="form-control" [(ngModel)]="stateId" formControlName="state">
+                                    <option value="" enabled>Select State</option>
+                                    <option *ngFor='let row of states' [ngValue]="row.state_id">{{ row.state }}</option>
+
+                                </select>
+                                <div
+                                    *ngIf="createCustomerForm.controls['state'].errors && createCustomerForm.controls['state'].touched">
+                                    <span *ngIf="createCustomerForm.controls['state'].errors.required"
+                                        style="color:red">Select State</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Address 1</label>
+                                <input type="text" style="text-transform: capitalize;" name="address1"
+                                    [(ngModel)]="address_1" onkeypress="return /[a-z]/i.test(event.key)"
+                                    formControlName="address1" maxlength="30" class="form-control"
+                                    placeholder="Enter Address 1">
+                                <mat-error
+                                    *ngIf="createCustomerForm.controls['address1'].errors && createCustomerForm.controls['address1'].touched">
+                                    <span *ngIf="createCustomerForm.controls['address1'].errors.required">Enter
+                                        Address 1</span>
+                                    <span *ngIf="createCustomerForm.controls['address1'].errors.minlength">Enter
+                                        Minimum 3 Latter
+                                    </span>
+                                </mat-error>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Address 2</label>
+                                <input type="text" name="address2" style="text-transform: capitalize;"
+                                    [(ngModel)]="address_2" onkeypress="return /[a-z]/i.test(event.key)"
+                                    formControlName="address2" maxlength="30" class="form-control"
+                                    placeholder="Enter Address 2">
+                                <mat-error
+                                    *ngIf="createCustomerForm.controls['address2'].errors && createCustomerForm.controls['address2'].touched">
+                                    <span *ngIf="createCustomerForm.controls['address2'].errors.required">Enter
+                                        Address 2</span>
+                                    <span *ngIf="createCustomerForm.controls['address2'].errors.minlength">Enter
+                                        Minimum 3 Latter
+                                    </span>
+                                </mat-error>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">GST Number <span class="required">*</span></label>
+                                <input type="text" #input (input)="input.value=$event.target.value.toUpperCase()"
+                                    [(ngModel)]="gst_num" formControlName="gstNum" maxlength="15"
+                                    oninput="this.value = this.value.replace(/[^0-9.],[^A-Z]/g, '').replace(/(\..*)\./g, '$1');"
+                                    class="form-control" placeholder="Enter GST Number">
+                                <mat-error
+                                    *ngIf="createCustomerForm.controls['gstNum'].errors && createCustomerForm.controls['gstNum'].touched">
+                                    <span *ngIf="createCustomerForm.controls['gstNum'].errors.required">Enter GST Number
+                                        Number</span>
+                                    <span *ngIf="createCustomerForm.controls['gstNum'].errors.minlength">GST number must
+                                        15
+                                        digits</span>
+                                </mat-error>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 text-center">
+                            <div class="form-group">
+                                <button type="submit" *ngIf="this.isAddUser" class="btn btn-primary mrleftright"
+                                    (click)="submit()" [disabled]="createCustomerForm.invalid" mat-dialog-close="isAddUser">Submit</button>
+                                <button type="submit" *ngIf="!this.isAddUser" class="btn btn-primary mrleftright"
+                                    (click)="submit()" mat-dialog-close="!isAddUser">Update</button>
+                                <button type="submit" mat-dialog-close="false"
+                                    class="btn btn-warning mrleftright">Cancel</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</mat-dialog-actions>

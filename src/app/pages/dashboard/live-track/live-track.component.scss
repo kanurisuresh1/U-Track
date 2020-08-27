@@ -1,0 +1,175 @@
+
+
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 0.15rem;
+  }
+
+  .white-bg {
+    background: #fff;
+    border: solid 1px #ddd
+}
+
+
+.mt5{
+    margin-top: 5px;
+}
+.mt10{
+    margin-top: 10px;
+}
+
+.mb10{
+    margin-bottom: 10px;
+}
+
+.mb15{
+    margin-bottom: 15px;
+}
+
+.text-right {
+    text-align: right !important;
+}
+.pull-right {
+    float: right !important;
+}
+.pull-left {
+    float: left;
+}
+
+.mapselectoption {
+    position: absolute;
+    margin: 10px;
+    right: 30px;
+    top: 0;
+    width: 200px
+}
+
+.mapselectoption-nw {
+    position: absolute;
+    margin: 10px;
+    right: 45px;
+    top: 0;
+    width: 200px
+}
+
+.vehicle-types-model {
+    position: absolute;
+    padding: 6px;
+    background: #fff;
+    border: solid 1px #ccc;
+    margin: 10px;
+    top: 0;
+}
+
+.vehicle-types-model p{
+    font-size: 12px !important;
+    margin-bottom: 6px !important;
+}
+
+.fa-square-full:before {
+    content: "\f45c"; }
+
+    .text-move {
+        color: #26b206
+    }
+    
+    .text-stop {
+        color: #eb272f
+    }
+    
+    .text-datanotfound {
+        color: #d7a132
+    }
+    
+    .speedometer {
+        position: absolute;
+        bottom: 0px;
+    }
+
+.height-80vh {
+    height: 81vh;
+    overflow: hidden
+}
+
+.height-80vh {
+    height: 505px;
+    overflow: hidden
+}
+
+.btn-theme-yellow {
+    border-radius: 50px !important;
+    padding: 6px 16px !important;
+    background: #febe40;
+    color: #242424 !important;
+    font-size: 12px !important;
+    border: none;
+    outline: none;
+    font-weight: 500;
+    transition: 0.5s;
+    margin-top: 0px;
+}
+
+.btn-theme-yellow:hover {
+    background: #0b46ae;
+    color: #fff !important
+}
+
+.text-blue {
+    color: #0b46ae;
+    margin-bottom: 1px;
+    margin-top: -4px;
+}
+
+.statistics {
+    margin: 0;
+    padding: 0;
+    clear: both;
+    width: 100%;
+}
+
+.statistics li {
+    list-style: none;
+    float: left;
+    padding: 5px 25px;
+    margin: 0px 10px;
+    border-radius: 25px;
+    background: #f1f1f1
+}
+
+.statistics li.active {
+    background: #febe40;
+    text-decoration: none;
+    border-radius: 25px;
+}
+
+.pt20 {
+    padding-top: 20px
+}
+
+.pb20 {
+    padding-bottom: 20px
+}
+
+.bdr-box {
+    border: solid 1px #e2e2e2;
+    border-radius: 10px;
+    padding: 5px;
+    text-align: center;
+    margin:5px 0px;
+    margin-right: 0px;
+}
+
+
+.no-pad {
+    padding: 0px 0px
+}
+
+.responsive {
+    width: 80%;
+    height: 85%;
+    // border-radius: 50%;
+}
+
+

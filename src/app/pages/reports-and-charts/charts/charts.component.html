@@ -1,0 +1,19 @@
+<div class="row clearfix" style="margin-bottom:15px">
+    <div class="col-md-10 text-left">
+        <button class="btn btn-primary mr15 btn-sm" nbTooltip="Back" nbTooltipStatus="primary"
+            [nbTooltipIcon]="{icon: 'arrow-back-outline', pack: 'eva'}" (click)="back()"><i class="fa fa-arrow-left"
+                aria-hidden="true"></i>
+        </button>
+        
+    </div>
+</div>
+
+<!-- <div style="display: block">
+    <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+        (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+</div> -->
+
+<div class="pad15-box">
+    <div class="clearfix"></div>
+    <div echarts [options]="options" class="echart"></div>
+  </div>

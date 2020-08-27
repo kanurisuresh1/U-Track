@@ -1,0 +1,185 @@
+<div class="row clearfix">
+    <div class="col-md-10 text-left">
+        <button class="btn btn-primary mr15 btn-sm" nbTooltip="Back" nbTooltipStatus="primary"
+            [nbTooltipIcon]="{icon: 'arrow-back-outline', pack: 'eva'}" (click)="back()"><i class="fa fa-arrow-left"
+                aria-hidden="true"></i>
+        </button>
+
+        <button class="btn btn-danger pull-left mr15 btn-sm" mat-button
+            (click)="exporter.exportTable('xlsx', {fileName:'24HrsAnalysisReport', sheet: '24HrsReport', Props: {Author: 'Talha'}})"><i
+                class="fa fa-file-excel"></i> &nbsp; Export To Excel</button>
+        <button class="btn btn-primary pull-left mr15 btn-sm" (click)="downloadPDF()" mat-button><i
+                class="fa fa-file-pdf"></i>
+            &nbsp; Export To PDF</button>
+        <button class="btn btn-success pull-left mr1 btn-sm" nbTooltip="Refresh" (click)="refresh()"
+            nbTooltipStatus="success" [nbTooltipIcon]="{icon: 'refresh-outline', pack: 'eva'}"><i
+                class="fa fa-sync"></i></button>
+
+    </div>
+</div>
+
+<div [formGroup]="AnalysisForm">
+
+    <div class="row clearfix">
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Select Vehicle Number</label>
+
+                <mat-select class="form-control" mySelect.value="deviceLinkId" formControlName="vechicleName" multiple>
+                    <mat-option #allSelected (click)="toggleAllSelection()" [value]="0">Select All</mat-option>
+                    <mat-option *ngFor='let row of vehicles' [value]="row.device_link_id">
+                        {{row.vehicle_number}}</mat-option>
+                </mat-select>
+            </div>
+        </div>
+
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <mat-form-field class="no-line">
+                    <mat-label>Select Start Date</mat-label>
+                    <input matInput class="form-control datepicker" [matDatepicker]="startDate"
+                        formControlName="startDate" [max]="todayDate">
+                    <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                    <mat-datepicker #startDate></mat-datepicker>
+                </mat-form-field>
+
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="form-group">
+
+                <mat-form-field class="no-line1">
+                    <mat-label>Select End Date</mat-label>
+                    <input matInput class="form-control datepicker" [matDatepicker]="endDate" formControlName="endDate"
+                        [max]="todayDate">
+                    <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                    <mat-datepicker #endDate></mat-datepicker>
+                </mat-form-field>
+
+            </div>
+        </div>
+
+        <div class="col-md-2">
+
+            <button class="btn btn-primary pull-left mr15 btn-sm" mat-button (click)="viewReport()">
+                &nbsp; View Report</button>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <div class="example-container mat-elevation-z8" id="content" #content>
+        <div class="table-responsive" style="height: 500px;overflow: auto !important;">
+            <table matTableExporter #exporter="matTableExporter" class="table-bordered table" mat-table
+                [dataSource]="dataSource" matSort>
+
+                <ng-container matColumnDef="id">
+                    <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                    <td mat-cell *matCellDef="let element; let i = index;"> {{(i+1)}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="vehicle_number">
+                    <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>Vehicle Number
+                    </th>
+                    <td class="cellSpace" mat-cell *matCellDef="let element">{{element.vehicle_number}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="report_date">
+                    <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>Date
+                    </th>
+                    <td mat-cell *matCellDef="let element">{{element.report_date}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="total_travelled_time">
+                    <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header> Total Travel
+                        Time(HH:MM:SS)
+                    </th>
+                    <td class="cellSpace" mat-cell *matCellDef="let element"> {{element.total_travelled_time_formatted}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="total_stopped_time">
+                    <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header> Stopped
+                        Time(HH:MM:SS)
+                    </th>
+                    <td mat-cell class="cellSpace" *matCellDef="let element"> {{element.total_stopped_time_formatted}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="driver_name">
+                    <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>Driver Name
+                    </th>
+                    <td mat-cell class="cellSpace" *matCellDef="let element"> {{element.driver_name}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="driver_number">
+                    <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>Driver Number
+                    </th>
+                    <td mat-cell class="cellSpace" *matCellDef="let element"> {{element.driver_number}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="total_distance">
+                    <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>KMS
+                    </th>
+                    <td mat-cell class="cellSpace" *matCellDef="let element"> {{element.total_distance_formatted}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="total_day_distance">
+                    <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>Day KMS
+                    </th>
+                    <td mat-cell class="cellSpace" *matCellDef="let element"> {{element.total_day_distance_formatted}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="total_night_distance">
+                    <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>Night KMS
+                    </th>
+                    <td mat-cell class="cellSpace" *matCellDef="let element"> {{element.total_night_distance_formatted}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="max_speed">
+                    <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>Max Speed(KMPH)
+                    </th>
+                    <td mat-cell class="cellSpace" *matCellDef="let element"> {{element.max_speed_formatted}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="avg_speed">
+                    <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>Avg Speed(KMPH)
+                    </th>
+                    <td mat-cell class="cellSpace" *matCellDef="let element"> {{element.avg_speed_formatted}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="sudden_accerlation">
+                    <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>Sudden
+                        Accelerate
+                    </th>
+                    <td mat-cell class="cellSpace" *matCellDef="let element"> {{element.sudden_accerlation}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="sudden_deceleration">
+                    <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>Sudden
+                        Decelerate
+                    </th>
+                    <td mat-cell class="cellSpace" *matCellDef="let element"> {{element.sudden_deceleration}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="utilization">
+                    <th class="bg-primary !important" mat-header-cell *matHeaderCellDef mat-sort-header>Utilization %
+                    </th>
+                    <td mat-cell class="cellSpace" *matCellDef="let element">-</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            </table>
+        </div>
+    </div>
+</div>

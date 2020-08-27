@@ -1,0 +1,65 @@
+.md-form label {
+    font-size: 14px !important
+}
+
+.md-form label.active {
+    font-size: 14px !important;
+    color: #757575
+}
+
+.leftpannel {
+    width: 50% !important;
+    background: #eee;
+    height: 100vh;
+    background-image: url('../../assets/images/login/leftpannel-bg.jpg');
+    background-size: cover;
+    float: left;
+}
+
+.rightpannel {
+    width: 50% !important;
+    background: #fff;
+    height: 100vh;
+    float: right;
+}
+
+.main-logo{
+    width: 160px !important;
+    margin: auto;
+}
+
+.foot-logo{
+    width: 120px !important;
+    margin: auto;
+}
+
+.pull-left{
+    float: left;
+}
+
+.pull-right{
+    float: right;
+}
+
+.mb40{margin-bottom: 40px;}
+
+
+
+.login-section {
+    width: 450px;
+    background: #fff;
+    padding: 30px;
+    height: auto;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.login-section img {
+    width: 100%
+}
+
+.mb20 {
+    margin-bottom: 20px
+}
